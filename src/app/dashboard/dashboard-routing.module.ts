@@ -9,6 +9,11 @@ import { DashboardComponent } from './dashboard.component';
       {
         path: '',
         component: DashboardComponent
+      },
+      {
+        // Lazy load module.
+        path: 'users',
+        loadChildren: 'app/dashboard/users/users.module#UsersModule'
       }
     ])
   ],
