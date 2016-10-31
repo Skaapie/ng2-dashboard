@@ -6,6 +6,7 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { SharedModule } from './shared/shared.module';
 import { AuthModule } from './auth/auth.module';
 
 @NgModule({
@@ -17,6 +18,7 @@ import { AuthModule } from './auth/auth.module';
     FormsModule,
     HttpModule,
     AppRoutingModule,
+    SharedModule.forRoot(),
     AuthModule
   ],
   providers: [],
