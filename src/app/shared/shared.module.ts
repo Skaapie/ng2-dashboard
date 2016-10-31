@@ -8,4 +8,10 @@ import { SharedComponent } from './shared.component';
   ],
   declarations: [SharedComponent]
 })
-export class SharedModule { }
+export class SharedModule {
+
+  constructor() {
+    console.log('SharedModule constructor');
+  }
+
+}
