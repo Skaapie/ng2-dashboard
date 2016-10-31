@@ -1,16 +1,26 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SharedComponent } from './shared.component';
+import { RouterModule } from '@angular/router';
+
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopnavComponent } from './topnav/topnav.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
-  declarations: [SharedComponent, SidebarComponent, TopnavComponent]
+  declarations: [SidebarComponent, TopnavComponent],
+  exports: [SidebarComponent, TopnavComponent]
 })
 export class SharedModule {
+
+    static forRoot(): ModuleWithProviders {
+      return {
+        ngModule: SharedModule,
+        providers: []
+      };
+    }
 
   constructor() {
     console.log('SharedModule constructor');
