@@ -13,7 +13,8 @@ import { DashboardComponent } from './dashboard.component';
       {
         // Lazy load module.
         path: 'users',
-        loadChildren: 'app/dashboard/users/users.module#UsersModule'
+        loadChildren: 'app/dashboard/users/users.module#UsersModule',
+        component: DashboardComponent
       }
     ])
   ],
