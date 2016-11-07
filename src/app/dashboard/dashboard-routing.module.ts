@@ -11,7 +11,7 @@ import { HomeComponent } from './home/home.component';
         path: '',
         component: DashboardComponent,
         children: [
-          { path: 'home', component: HomeComponent },
+          { path: '', component: HomeComponent },
           // Lazy load module.
           { path: 'users', loadChildren: 'app/dashboard/users/users.module#UsersModule'}
         ]

@@ -1,0 +1,67 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+    <div class="card">
+      <div class="card-header text-xs-center">
+          <h3><i class="fa fa-sign-in fa-4x"></i></h3>
+      </div>
+      <div class="card-block">
+        <h4 class="card-title text-xs-center">Log in</h4>
+
+        <form [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+
+          <!-- Email -->
+            <div class="form-group"
+            [ngClass]="{
+            'has-danger': !formGroup.controls['email'].valid && formGroup.controls['email'].touched,
+            'has-success': formGroup.controls['email'].valid && formGroup.controls['email'].touched }">
+                <label class="col-form-label" for="inputEmail">Email</label>
+
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+
+                  <input type="email" class="form-control form-control-success form-control-danger" id="inputEmail"
+                  required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" validateEqual="confirmEmail" reverse="true" minlength="6" formControlName="email" ngDefaultControl>
+                </div>
+
+                <div class="form-control-feedback" *ngIf="formGroup.controls['email'].hasError('required') && formGroup.controls['email'].touched">Email is required.</div>
+                  <div class="form-control-feedback" *ngIf="formGroup.controls['email'].hasError('minlength') && formGroup.controls['email'].touched">Your email must be at least 6 characters long.</div>
+                  <div class="form-control-feedback" *ngIf="formGroup.controls['email'].hasError('pattern') && formGroup.controls['email'].touched">Email format invalid.</div>
+
+                  <!--<pre *ngIf="email.errors" class="margin-20">{{ email.errors | json }}</pre>-->
+
+                <small class="form-text text-muted">Your email address. e.g. email@example.com</small>
+            </div>
+
+          <!-- Password -->
+            <div class="form-group"
+            [ngClass]="{
+            'has-danger': !formGroup.controls['password'].valid && formGroup.controls['password'].touched,
+            'has-success': formGroup.controls['password'].valid && formGroup.controls['password'].touched }">
+                <label class="col-form-label" for="inputPassword">Password</label>
+
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-lock fa-fw" aria-hidden="true"></i></span>
+
+                  <input type="password" class="form-control form-control-success form-control-danger" id="inputPassword"
+                  required validateEqual="confirmPassword" reverse="true" minlength="6" maxlength="32" formControlName="password" ngDefaultControl>
+                </div>
+
+                <div class="form-control-feedback" *ngIf="formGroup.controls['password'].hasError('required') && formGroup.controls['password'].touched">Password is required.</div>
+                  <div class="form-control-feedback" *ngIf="formGroup.controls['password'].hasError('minlength') && formGroup.controls['password'].touched">Your password must be at least 6 characters long.</div>
+                  <div class="form-control-feedback" *ngIf="formGroup.controls['password'].hasError('maxlength') && formGroup.controls['password'].touched">Your password must be no more than 32 characters long.</div>
+
+                  <!--<pre *ngIf="password.errors" class="margin-20">{{ password.errors | json }}</pre>-->
+
+                <small class="form-text text-muted">Your password.</small>
+            </div>
+
+            <!-- Submit button -->
+              <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid">Log in</button>
+              <a class="card-link text-muted" routerLink="/forgot">Forgot password?</a>
+
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
