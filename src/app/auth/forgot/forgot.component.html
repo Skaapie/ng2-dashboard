@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-md-6 offset-md-3">
+  <div class="card">
+    <div class="card-header text-xs-center">
+        <h3><i class="fa fa-unlock-alt fa-4x"></i></h3>
+    </div>
+    <div class="card-block">
+      <h4 class="card-title text-xs-center">Forgot Password?</h4>
+
+      <!-- <p class="card-text text-muted">Enter your email to receive instructions on resetting your password.</p> -->
+
+        <form [formGroup]="formGroup" (ngSubmit)="submitForm(formGroup.value)">
+
+          <!-- Email -->
+            <div class="form-group"
+            [ngClass]="{
+            'has-danger': !formGroup.controls['email'].valid && formGroup.controls['email'].touched,
+            'has-success': formGroup.controls['email'].valid && formGroup.controls['email'].touched }">
+                <label class="col-form-label" for="inputEmail">Email</label>
+
+                <div class="input-group">
+                  <span class="input-group-addon"><i class="fa fa-envelope fa-fw" aria-hidden="true"></i></span>
+
+                  <input type="email" class="form-control form-control-success form-control-danger" id="inputEmail"
+                  required pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$" validateEqual="confirmEmail" reverse="true" minlength="6" formControlName="email" ngDefaultControl>
+                </div>
+
+                <div class="form-control-feedback" *ngIf="formGroup.controls['email'].hasError('required') && formGroup.controls['email'].touched">Email is required.</div>
+                  <div class="form-control-feedback" *ngIf="formGroup.controls['email'].hasError('minlength') && formGroup.controls['email'].touched">Your email must be at least 6 characters long.</div>
+                  <div class="form-control-feedback" *ngIf="formGroup.controls['email'].hasError('pattern') && formGroup.controls['email'].touched">Email format invalid.</div>
+
+                  <!--<pre *ngIf="email.errors" class="margin-20">{{ email.errors | json }}</pre>-->
+
+                <small class="form-text text-muted">Your email address. e.g. email@example.com</small>
+            </div>
+
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary" [disabled]="!formGroup.valid">Reset my password</button>
+            <a class="card-link text-muted" routerLink="../login">Log In</a>
+
+        </form>
+
+
+      <!-- <p class="card-text">With supporting text below as a natural lead-in to additional content.</p> -->
+      <!-- <a href="#" class="btn btn-primary">Go somewhere</a> -->
+    </div>
+  </div>
+  </div>
+</div>
