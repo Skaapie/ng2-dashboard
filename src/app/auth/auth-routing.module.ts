@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { AuthComponent } from './auth.component';
 import { LoginComponent } from './login/login.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,10 @@ import { ForgotComponent } from './forgot/forgot.component';
           {
             path: 'forgot',
             component: ForgotComponent
+          },
+          {
+            path: 'signup',
+            component: SignupComponent
           }
         ]
       }

@@ -10,6 +10,7 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { LoginComponent } from './login/login.component';
 import { ForgotComponent } from './forgot/forgot.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   imports: [
@@ -19,7 +20,7 @@ import { ForgotComponent } from './forgot/forgot.component';
     ReactiveFormsModule,
     SharedModule
   ],
-  declarations: [AuthComponent, LoginComponent, ForgotComponent]
+  declarations: [AuthComponent, LoginComponent, ForgotComponent, SignupComponent]
 })
 export class AuthModule {
 
