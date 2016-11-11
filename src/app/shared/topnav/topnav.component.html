@@ -16,5 +16,19 @@
                 <a class="dropdown-item"><i class="fa fa-fw fa-power-off"></i>Log Out</a>
             </div>
         </li>
+
+        <!-- When logged out -->
+        <li class="nav-item pull-xs-right" *ngIf="!(this.loggedInUser$ | async)">
+          <a class="nav-link" routerLink="/auth/login" routerLinActive="active">Login</a>
+        </li>
+        <li class="nav-item pull-xs-right" *ngIf="!(this.loggedInUser$ | async)">
+          <a class="nav-link" routerLink="/auth/signup" routerLinActive="active">Signup</a>
+        </li>
+
+        <!-- When logged in -->
+        <li class="nav-item pull-xs-right" *ngIf="this.loggedInUser$ | async">
+          <a class="nav-link" routerLink="/dashboard" routerLinActive="active">Dashboard</a>
+        </li>
+
     </ul>
 </nav>
