@@ -87,7 +87,7 @@ export class AuthService {
       });
   }
 
-  logout() {
+  logout(redirectUrl?: string) {
     // Possibly emit event so that other services can purge?
     console.log('Logging user out.');
     localStorage.removeItem('currentUser');
@@ -95,6 +95,9 @@ export class AuthService {
     this._loggedInUser.next(null);
     this.api.resetHeaders();
     this.loggedIn = false;
+    if (redirectUrl) {
+      this.router.navigate([redirectUrl]);
+    }
   }
 
   isLoggedIn() {
