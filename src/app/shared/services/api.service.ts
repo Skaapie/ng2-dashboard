@@ -8,7 +8,7 @@ import 'rxjs/add/observable/throw';
 export class ApiService {
 
   headers: Headers;
-  api_url: string = 'http://localhost:3000/api';
+  api_url: string = 'http://localhost:8080/api';
 
   constructor(private http: Http) {
     console.log('ApiService constructor.');

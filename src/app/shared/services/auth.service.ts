@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/map';
+import { JwtHelper } from 'angular2-jwt';
 
 import { ApiService } from './api.service';
 import { User } from '../models/index';
@@ -19,6 +20,8 @@ export class AuthService {
 
   public redirectUrl: string;
 
+  private jwtHelper: JwtHelper = new JwtHelper();
+
   constructor(private api: ApiService, private router: Router) {
 
     console.log('AuthService constructor.');
@@ -26,14 +29,34 @@ export class AuthService {
     this._loggedInUser = new BehaviorSubject<User>(undefined);
     this.dataStore = { loggedInUser: undefined };
 
-    let loggedInUser = JSON.parse(localStorage.getItem('currentUser'));
+    let loggedInUser: User = JSON.parse(localStorage.getItem('currentUser'));
 
     if (loggedInUser && loggedInUser.token) {
-      console.log('AuthService constructor. User logged in!');
-      this.dataStore.loggedInUser = loggedInUser;
-      this._loggedInUser.next(this.dataStore.loggedInUser);
-      this.loggedIn = true;
-      this.api.setHeaders({ Authorization: `Bearer ${this.dataStore.loggedInUser.token}`});
+
+      if (!loggedInUser.token) {
+        console.log('No token on loggedInUser.');
+        this.logout();
+      } else {
+        let expired: boolean = true;
+        let invalid: boolean = true;
+        try {
+          expired = this.jwtHelper.isTokenExpired(loggedInUser.token);
+          invalid = false;
+        } catch(ex) {
+          invalid = true;
+        }
+
+        if(expired || invalid) {
+          console.log('JWT Token: ' + (expired === true ? 'expired' : 'invalid'));
+          this.logout();
+        } else {
+          console.log('User with valid token: logged in!');
+          this.dataStore.loggedInUser = loggedInUser;
+          this._loggedInUser.next(this.dataStore.loggedInUser);
+          this.loggedIn = true;
+          this.api.setHeaders({ Authorization: `Bearer ${this.dataStore.loggedInUser.token}`});
+        }
+      }
     }
   }
 
@@ -43,9 +66,10 @@ export class AuthService {
 
   login(credentials: AuthCredentials) {
 
-    return this.api.post('/authenticate', credentials)
-      .map((user: User) => {
-
+    return this.api.post('/auth/login', credentials)
+      .map((response) => {
+        let user: User = this.jwtHelper.decodeToken(response.token);
+        user.token = response.token;
         if (user && user.token) {
 
           localStorage.setItem('currentUser', JSON.stringify(user));
@@ -74,8 +98,18 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    console.log('isLoggedIn() ? ', this.loggedIn);
-    return this.loggedIn;
+    if (!this.dataStore.loggedInUser) {
+      return false;
+    }
+
+    if (this.jwtHelper.isTokenExpired(this.dataStore.loggedInUser.token)) {
+      console.log('authService isLoggedIn() isTokenExpired');
+      this.logout();
+      return false;
+    } else {
+      console.log('isLoggedIn() ? ', this.loggedIn);
+      return this.loggedIn;
+    }
   }
 
 }
