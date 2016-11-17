@@ -31,6 +31,10 @@ export class TopnavComponent implements OnInit {
     this.loggedInUser$ = this.authService.loggedInUser$;
   }
 
+  logout() {
+    this.authService.logout('/');
+  }
+
   // ngOnDestroy() {
     // Async pipes automatically unsubscribe from observables.
     // If you manually subscribe to them you will have to manually
