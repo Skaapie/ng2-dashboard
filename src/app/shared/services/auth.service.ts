@@ -54,7 +54,7 @@ export class AuthService {
           this.dataStore.loggedInUser = loggedInUser;
           this._loggedInUser.next(this.dataStore.loggedInUser);
           this.loggedIn = true;
-          this.api.setHeaders({ Authorization: `Bearer ${this.dataStore.loggedInUser.token}`});
+          this.api.setHeaders({ 'x-access-token': `${this.dataStore.loggedInUser.token}`});
         }
       }
     }
@@ -76,7 +76,7 @@ export class AuthService {
           this.dataStore.loggedInUser = user;
           this._loggedInUser.next(this.dataStore.loggedInUser);
           this.loggedIn = true;
-          this.api.setHeaders({ Authorization: `Bearer ${this.dataStore.loggedInUser.token}`});
+          this.api.setHeaders({ 'x-access-token': `${this.dataStore.loggedInUser.token}`});
 
           if (this.redirectUrl) {
             this.router.navigate([this.redirectUrl]);
