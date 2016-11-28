@@ -1,4 +1,16 @@
-# Web2
+# ng2-dashboard
+
+Angular2 dashboard tinker project.
+
+Borrowed inspiration and some styles from [SB-Admin-BS4-Angular-2](https://github.com/start-angular/SB-Admin-BS4-Angular-2)
+
+This code works with the corresponding back-end [REST API](https://github.com/Skaapie/rest-api).
+
+## Features
+* Some of the modules are lazy loaded only after login.
+* Auth uses JSON Web Tokens.
+* Uses [Bootstrap 4 Alpha](https://v4-alpha.getbootstrap.com/)
+* Uses [Font Awesome Icons](http://fontawesome.io/)
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.19-3.
 
